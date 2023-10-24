@@ -18,13 +18,18 @@ class App(customtkinter.CTk):
         optionmenu_1 = customtkinter.CTkOptionMenu(self, values=["Profile", "Options"],command=self.window_choose)
         optionmenu_1.grid(row=0, column=0, pady=50, padx=10)
         optionmenu_1.set("CTk Option Menu")
+
+        self.title_show = False
         #self.button = customtkinter.CTkButton(master=self, text="View Profile", command=self.button_profile)
         #self.button.place(relx=0.1, rely=0.2, anchor=customtkinter.CENTER)
 
     
     def window_choose(self,choice):
+        if(self.title_show):
+            self.text.destroy()
+            self.title_show=False
         if(choice=="Profile"):
-            text = customtkinter.CTkLabel(master=self,text="Profile information",text_color=self.light_blue,font=("TimesNewRoman",20)) 
+            self.text = customtkinter.CTkLabel(master=self,text="Profile information",text_color=self.light_blue,font=("TimesNewRoman",20)) 
             name = customtkinter.CTkLabel(master=self,text="Nombre: "+"default",text_color=self.light_blue)
             birthday = customtkinter.CTkLabel(master=self,text="Cumpleaños: "+"default",text_color=self.light_blue)
             direction = customtkinter.CTkLabel(master=self,text="Dirección: "+"default",text_color=self.light_blue)
@@ -32,8 +37,10 @@ class App(customtkinter.CTk):
             birthday.place(relx=0.0,rely=0.35)
             direction.place(relx=0.0,rely=0.45)
         else:
-            text=customtkinter.CTkLabel(master=self,text="Options",text_color=self.light_blue,font=("TimesNewRoman",20))
-        text.place(relx=0.0,rely=0.2)
+            self.text=customtkinter.CTkLabel(master=self,text="Options",text_color=self.light_blue,font=("TimesNewRoman",20))
+        self.text.place(relx=0.0,rely=0.2)
+        self.title_show=True
+
 
     def button_profile(self):
         window = customtkinter.CTk()
