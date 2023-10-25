@@ -5,18 +5,21 @@ import tkinter as tk
 from functions import *
 import qrcode
 from send_mail import*
+from datetime import datetime
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
         customtkinter.set_appearance_mode("dark")  # Modes: system (default), light, dark
         customtkinter.set_default_color_theme("blue")
-        img = ImageTk.PhotoImage(PIL.Image.open("scripts\Logo.png"))
+        image = PIL.Image.open("scripts\logo.jpeg")
+        resized_image= image.resize((100,100))
+        img = ImageTk.PhotoImage(resized_image)
         self.geometry("800x500")
         self.light_blue = "#ADD8E6"
         self.Title = customtkinter.CTkLabel(master=self,text="TASTY TRACKS",width=10,height=3,font=("TimesNewRoman",30),text_color=self.light_blue)
         self.Title.place(relx=0.5,rely=0.05, anchor=customtkinter.CENTER)
         self.logo = customtkinter.CTkLabel(master=self,image=img,text="")
-        self.logo.place(relx=0.93,rely=0.0)
+        self.logo.place(relx=0.86,rely=0.0)
         optionmenu_1 = customtkinter.CTkOptionMenu(self, values=["Profile", "Options"],command=self.window_choose)
         optionmenu_1.grid(row=0, column=0, pady=50, padx=10)
         optionmenu_1.set("Menu")
@@ -65,6 +68,13 @@ class App(customtkinter.CTk):
         def generate_code():
             if(self.carrito !=[]):
                 data = str(self.prod)
+                productos=""
+                for i in data:
+                    if i==",":
+                        productos+=" "
+                    else:
+                        productos+=i
+                hacer_pedido("Tasty Tracks",productos, datetime.now(), "Preparando", info_cliente()[2])
                 img = qrcode.make(data)
                 f = open("output.png", "wb")
                 img.save(f)
@@ -72,6 +82,19 @@ class App(customtkinter.CTk):
                 self.prod={}
                 self.carrito=[]
                 self.delete()
+
+                root = tk.Toplevel()
+                root.configure(bg="white")
+                root.geometry("350x390")
+                image = PIL.Image.open("output.png")
+                resized_image= image.resize((350,350))
+                img = ImageTk.PhotoImage(resized_image)
+                label = tk.Label(master=root,text="Purchase information",bg="white",font=("TimesNewRoman",20))
+                label.place(relx=0.15,rely=0.0)
+                logo = tk.Label(master=root,image=img,text="")
+                logo.place(relx=0.0,rely=0.1)
+                root.mainloop()
+
             else:
                 window = customtkinter.CTk()
                 window.geometry("200x200")
@@ -96,6 +119,8 @@ class App(customtkinter.CTk):
     def window_choose(self,choice):
         if(self.title_show):
             self.delete()
+            self.prod={}
+            self.carrito=[]
             self.title_show=False
         if(choice=="Profile"):
             data = info_cliente()
@@ -109,6 +134,7 @@ class App(customtkinter.CTk):
             self.contents.append(name)
             self.contents.append(birthday)
             self.contents.append(direction)
+
         elif choice=="Options":
             data = lista_empresas()
             optionmenu_2 = customtkinter.CTkOptionMenu(self, values=data,command=self.choose_company)

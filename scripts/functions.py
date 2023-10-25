@@ -1,13 +1,13 @@
 import csv    
 menus={
-    "Starbucks":["Cafe del dia","Cappuccino","Matcha latte", "Caramel macchiato", "Chocolate", "Mango dragonfruit refresher", "Mocha", "Espresso"],
+    "Café de la calle 86":["Cafe del dia","Cappuccino","Matcha latte", "Caramel macchiato", "Chocolate", "Mango dragonfruit refresher", "Mocha", "Espresso"],
     "Casa Nostra":["Spaguetti Carbonara","Lasagna de la Nonna","Pizza Hawaiana", "Esalada de la casa","Gnoki 4 formaggi", "Vino blanco", "Ravioles al pesto"],
     "Crepas del Cuadro":["Cajeta", "Nutella", "Manzana con canela", "Boloñesa", "Hawaiana"," Suiza","Queso con Zarzamora"],
     "Hamburguesas de Fuentes": ["BBQ","Hawaina","Tradicional", "Doble", "Con tocino",]
 }
-empresas=["Starbucks", "Casa Nostra", "Crepas del Cuadro", "Hamburguesas de Fuentes"]
+empresas=["Café de la calle 86", "Casa Nostra", "Crepas del Cuadro", "Hamburguesas de Fuentes"]
 nump=0
-cliente=["Santiago Chevez Trejo", "17/07/03", "Av.Lomas Verdes #415, Naucalpan"]
+cliente=["Santiago Chevez Trejo", "17/07/03", "Av.Lomas Verdes #415 Naucalpan"]
 def menu_empresa(empresa):
     global menus
     return menus[empresa]
