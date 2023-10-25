@@ -36,6 +36,17 @@ class App(customtkinter.CTk):
     def choose_company(self,choice):
         def select(choice):
             self.product = choice
+        def ver_carrito():
+            x = 0.75
+            y = 0.42
+            L1 = customtkinter.CTkLabel(self,text="Carrito de compras",text_color=self.light_blue,font=("TimesNewRoman",20))
+            L1.place(relx=0.75,rely=0.37,anchor=customtkinter.CENTER)
+            self.contents.append(L1)
+            for producto in self.carrito:
+                L = customtkinter.CTkLabel(self,text=str(self.prod[producto])+" : "+producto)
+                L.place(relx=x,rely=y,anchor=customtkinter.CENTER)
+                y+=0.05
+                self.contents.append(L)
         def buy():
             if(self.product!="" and self.product not in self.carrito):
                 self.carrito.append(self.product)
@@ -49,18 +60,8 @@ class App(customtkinter.CTk):
                 Label = customtkinter.CTkLabel(window,text="SELECCIONE PRODUCTO",text_color="red")
                 Label.place(relx=0.5,rely=0.05, anchor=customtkinter.CENTER)
                 window.mainloop()
+            ver_carrito()
 
-        def ver_carrito():
-            x = 0.75
-            y = 0.42
-            L1 = customtkinter.CTkLabel(self,text="Carrito de compras",text_color=self.light_blue,font=("TimesNewRoman",20))
-            L1.place(relx=0.75,rely=0.37,anchor=customtkinter.CENTER)
-            self.contents.append(L1)
-            for producto in self.carrito:
-                L = customtkinter.CTkLabel(self,text=str(self.prod[producto])+" : "+producto)
-                L.place(relx=x,rely=y,anchor=customtkinter.CENTER)
-                y+=0.05
-                self.contents.append(L)
         def generate_code():
             if(self.carrito !=[]):
                 data = str(self.prod)
@@ -68,9 +69,9 @@ class App(customtkinter.CTk):
                 f = open("output.png", "wb")
                 img.save(f)
                 f.close()
-                send_mail(data)
                 self.prod={}
                 self.carrito=[]
+                self.delete()
             else:
                 window = customtkinter.CTk()
                 window.geometry("200x200")
