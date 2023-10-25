@@ -16,7 +16,7 @@ class App(customtkinter.CTk):
         self.Title = customtkinter.CTkLabel(master=self,text="TASTY TRACKS",width=10,height=3,font=("TimesNewRoman",30),text_color=self.light_blue)
         self.Title.place(relx=0.5,rely=0.05, anchor=customtkinter.CENTER)
         self.logo = customtkinter.CTkLabel(master=self,image=img,text="")
-       # self.logo.place(relx=0.3,rely=0.0)
+        self.logo.place(relx=0.93,rely=0.0)
         optionmenu_1 = customtkinter.CTkOptionMenu(self, values=["Profile", "Options"],command=self.window_choose)
         optionmenu_1.grid(row=0, column=0, pady=50, padx=10)
         optionmenu_1.set("Menu")
@@ -85,15 +85,12 @@ class App(customtkinter.CTk):
         optionmenu_3.grid(row=2, column=0, pady=10, padx=0)
         optionmenu_3.set("Productos")
         button = customtkinter.CTkButton(master=self, text="Añadir a carrito", command=buy)
-        button.place(relx=0.3, rely=0.37, anchor=customtkinter.CENTER)
-        button2= customtkinter.CTkButton(master=self, text="Ver carrito", command=ver_carrito)
-        button2.place(relx=0.5, rely=0.37, anchor=customtkinter.CENTER)
-        button3 =customtkinter.CTkButton(master=self, text="Salir", command=generate_code)
-        button3.place(relx=0.4, rely=0.44, anchor=customtkinter.CENTER)
+        button.place(relx=0.33, rely=0.36, anchor=customtkinter.CENTER)
+        button2 =customtkinter.CTkButton(master=self, text="Salir", command=generate_code)
+        button2.place(relx=0.53, rely=0.36, anchor=customtkinter.CENTER)
         self.contents.append(optionmenu_3)
         self.contents.append(button)
         self.contents.append(button2)
-        self.contents.append(button3)
         
 
     def window_choose(self,choice):
@@ -112,7 +109,6 @@ class App(customtkinter.CTk):
             self.contents.append(name)
             self.contents.append(birthday)
             self.contents.append(direction)
-
         elif choice=="Options":
             data = lista_empresas()
             optionmenu_2 = customtkinter.CTkOptionMenu(self, values=data,command=self.choose_company)
@@ -120,6 +116,7 @@ class App(customtkinter.CTk):
             optionmenu_2.set("Restaurantes")
             self.text=customtkinter.CTkLabel(master=self,text="Options",text_color=self.light_blue,font=("TimesNewRoman",20))
             self.contents.append(optionmenu_2)
+
         self.text.place(relx=0.0,rely=0.2)
         self.title_show=True
         self.contents.append(self.text)
